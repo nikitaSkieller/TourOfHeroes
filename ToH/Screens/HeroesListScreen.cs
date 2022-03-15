@@ -6,14 +6,12 @@ namespace ToH.Screens;
 public class HeroesListScreen : Screen
 {
     private readonly IDatabase _db;
-    private readonly ILog _log;
     private readonly IPrinter _printer;
     private int cursorPosition = 0;
 
-    public HeroesListScreen(IDatabase db, ILog log, IPrinter printer)
+    public HeroesListScreen(IDatabase db, IPrinter printer)
     {
         _db = db;
-        _log = log;
         _printer = printer;
     }
 

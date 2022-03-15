@@ -6,12 +6,12 @@ using ToH.Log;
 using ToH.Screens;
 
 var db = new HeroesContainer();
-var log = new ConsoleLog();
 var printer = new ConsolePrinter();
-var initScreen = new HeroesListScreen(db, log, printer);
+var initScreen = new HeroesListScreen(db, printer);
 
 var controller = new Controller();
-var ui = new Ui(controller, initScreen);
+var log = new ConsoleLog();
+var ui = new Ui(controller, initScreen, log);
 ui.Print();
 
 controller.ListenForInput();

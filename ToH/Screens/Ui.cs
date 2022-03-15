@@ -6,11 +6,13 @@ namespace ToH.Screens;
 public class Ui : IObserver
 {
     private readonly Controller _controller;
+    private readonly ILog _log;
     public Screen Screen { get; set; }
 
-    public Ui(Controller controller, Screen screen)
+    public Ui(Controller controller, Screen screen, ILog log)
     {
         _controller = controller;
+        _log = log;
         Screen = screen;
         _controller.Add(this);
     }
@@ -30,7 +32,7 @@ public class Ui : IObserver
                 break;
 
             default:
-                // TODO log
+                _log.Log($"Unhandled action: {_controller.Action}");
                 break;
         }
 

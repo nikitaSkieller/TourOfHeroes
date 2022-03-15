@@ -26,14 +26,16 @@ public class HeroesListScreenTest
     [Fact]
     public void ShouldPrintTowLines_WithNoActionAndOneHero()
     {
-        // Setup
+        // Arrange
         _db.Setup(db => db.GetAllHeroes()).Returns(new List<Hero>()
         {
             new () { Id = 1, Name = "TestHero1"},
         });
         
+        // Act
         uut.Print(Action.None);
 
+        // Assert
         _printer.Verify(printer => printer.PrintLine(
                 It.IsAny<string>()),
             Times.Exactly(2));
@@ -42,18 +44,38 @@ public class HeroesListScreenTest
     [Fact]
     public void ShouldAddCursorOnFirstHero_WhenNoActionIsGiven()
     {
-        // Setup
+        // Arrange
         _db.Setup(db => db.GetAllHeroes()).Returns(new List<Hero>()
         {
             new () { Id = 1, Name = "TestHero1"},
         });
         
+        // Act
         uut.Print(Action.None);
 
+        // Assert
         _printer.Verify(printer => printer.PrintLine(
             It.Is<string>(s => s.Contains("*"))), 
             Times.Exactly(1));
     }
-    
-    
+
+    [Fact]
+    public void ShouldShowHeroNameInUppercase()
+    {
+        // Arrange
+        _db.Setup(db => db.GetAllHeroes()).Returns(new List<Hero>()
+        {
+            new () { Id = 1, Name = "TestHero1"},
+        });
+        
+        // Act
+        uut.Print(Action.None);
+
+        // Assert
+        _printer.Verify(printer => printer.PrintLine(
+                It.Is<string>(s => s.Contains("TESTHERO1"))), 
+            Times.Exactly(1));   
+    }
+
+
 }

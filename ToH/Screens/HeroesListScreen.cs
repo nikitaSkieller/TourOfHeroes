@@ -15,12 +15,12 @@ public class HeroesListScreen : Screen
         _printer = printer;
     }
 
-    public override void None(Ui ui)
+    public override void None(IUi ui)
     {
         ShowHeroes();
     }
 
-    public override void Up(Ui ui)
+    public override void Up(IUi ui)
     {
         if (cursorPosition > 0)
         {
@@ -29,7 +29,7 @@ public class HeroesListScreen : Screen
         ShowHeroes();
     }
 
-    public override void Down(Ui ui)
+    public override void Down(IUi ui)
     {
         if (_db.GetAllHeroes().Count - 1 > cursorPosition)
         {
@@ -37,7 +37,12 @@ public class HeroesListScreen : Screen
         }
         ShowHeroes();
     }
-    
+
+    public override void Enter(IUi ui)
+    {
+        ui.Screen = new HeroScreen(_db.GetAllHeroes()[cursorPosition]);
+    }
+
     private void ShowHeroes()
     {
         var heroes = _db.GetAllHeroes();

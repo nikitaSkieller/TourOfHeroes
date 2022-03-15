@@ -68,5 +68,18 @@ public class UiTest
         // Assert
         _screen.Verify(screen => screen.Up(It.Is<Ui>(ui => ui.Equals(uut))), Times.Once);
     }
+    
+    [Fact]
+    public void ShouldExecuteEnterActionOnScreen_WhenUpdateIsCalledAndControllerActionIsEnter()
+    {
+        // Arrange
+        _controller.Setup(controller => controller.Action).Returns(Action.Enter);
+        
+        // Act
+        uut.Update();
+        
+        // Assert
+        _screen.Verify(screen => screen.Enter(It.Is<Ui>(ui => ui.Equals(uut))), Times.Once);
+    }
 
 }

@@ -3,7 +3,7 @@ using ToH.Log;
 
 namespace ToH.Screens;
 
-public class Ui : IObserver
+public class Ui : IUi, IObserver
 {
     private readonly Controller _controller;
     private readonly ILog _log;
@@ -30,7 +30,9 @@ public class Ui : IObserver
             case Action.Up:
                 Screen.Up(this);
                 break;
-
+            case Action.Enter:
+                Screen.Enter(this);
+                break;
             default:
                 _log.Log($"Unhandled action: {_controller.Action}");
                 break;

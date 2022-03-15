@@ -13,11 +13,13 @@ public class HeroesListScreenTest
     private HeroesListScreen uut;
     private Mock<IDatabase> _db;
     private Mock<IPrinter> _printer;
+    private Mock<IUi> _ui;
 
     public HeroesListScreenTest()
     {
         _db = new Mock<IDatabase>();
         _printer = new Mock<IPrinter>(MockBehavior.Strict);
+        _ui = new Mock<IUi>();
         uut = new HeroesListScreen(_db.Object, _printer.Object);
     }
 
@@ -33,7 +35,7 @@ public class HeroesListScreenTest
         _printer.Setup(p => p.PrintLine(It.IsAny<string>()));
 
         // Act
-        uut.None(null);
+        uut.None(_ui.Object);
 
         // Assert
         _printer.Verify(printer => printer.PrintLine(
@@ -55,7 +57,7 @@ public class HeroesListScreenTest
         _printer.InSequence(seq).Setup(p => p.PrintLine(It.Is<string>(s => s.Contains("*"))));
 
         // Act
-        uut.None(null);
+        uut.None(_ui.Object);
 
         // Assert
         _printer.Verify(p => p.PrintLine(It.Is<string>(s => s.Contains("*"))), Times.Once);
@@ -76,7 +78,7 @@ public class HeroesListScreenTest
         _printer.InSequence(seq).Setup(p => p.PrintLine(It.Is<string>(s => s.Contains("*"))));
 
         // Act
-        uut.Down(null);
+        uut.Down(_ui.Object);
 
         // Assert
         _printer.Verify(p => p.PrintLine(It.Is<string>(s => s.Contains("*"))), Times.Once);
@@ -97,7 +99,7 @@ public class HeroesListScreenTest
         _printer.InSequence(seq).Setup(p => p.PrintLine(It.Is<string>(s => s.Contains("*"))));
 
         // Act
-        uut.Up(null);
+        uut.Up(_ui.Object);
 
         // Assert
         _printer.Verify(p => p.PrintLine(It.Is<string>(s => s.Contains("*"))), Times.Once);
@@ -120,7 +122,7 @@ public class HeroesListScreenTest
         _printer.InSequence(seq).Setup(p => p.PrintLine(It.Is<string>(s => !s.Contains("*"))));
 
         // Act
-        uut.None(null);
+        uut.None(_ui.Object);
 
         // Assert
         _printer.Verify(p => p.PrintLine(It.Is<string>(s => !s.Contains("*"))), Times.Exactly(2));
@@ -139,7 +141,7 @@ public class HeroesListScreenTest
         _printer.Setup(p => p.PrintLine(It.IsAny<string>()));
 
         // Act
-        uut.None(null);
+        uut.None(_ui.Object);
         
         // Assert
         _printer.Verify(printer => printer.PrintLine(
@@ -163,7 +165,7 @@ public class HeroesListScreenTest
         _printer.InSequence(seq).Setup(p => p.PrintLine(It.Is<string>(s => s.Contains("*"))));
 
         // Act
-        uut.Down(null);
+        uut.Down(_ui.Object);
 
         // Assert
         _printer.Verify(p => p.PrintLine(It.Is<string>(s => !s.Contains("*"))), Times.Exactly(2));
@@ -189,8 +191,8 @@ public class HeroesListScreenTest
         _printer.InSequence(seq).Setup(p => p.PrintLine(It.Is<string>(s => s.Contains("*"))));
 
         // Act
-        uut.Down(null);
-        uut.Down(null);
+        uut.Down(_ui.Object);
+        uut.Down(_ui.Object);
 
         // Assert
         _printer.Verify(p => p.PrintLine(It.Is<string>(s => !s.Contains("*"))), Times.Exactly(4));
@@ -216,12 +218,28 @@ public class HeroesListScreenTest
         _printer.InSequence(seq).Setup(p => p.PrintLine(It.Is<string>(s => !s.Contains("*"))));
 
         // Act
-        uut.Down(null);
-        uut.Up(null);
+        uut.Down(_ui.Object);
+        uut.Up(_ui.Object);
 
         // Assert
         _printer.Verify(p => p.PrintLine(It.Is<string>(s => !s.Contains("*"))), Times.Exactly(4));
         _printer.Verify(p => p.PrintLine(It.Is<string>(s => s.Contains("*"))), Times.Exactly(2));
+    }
+
+    [Fact]
+    public void ShouldSetScreenOnUiToHeroScreen_WhenEnterActionIsGiven()
+    {
+        // Arrange
+        _db.Setup(db => db.GetAllHeroes()).Returns(new List<Hero>()
+        {
+            new () { Id = 1, Name = "TestHero1"},
+        });
+        
+        // Act
+        uut.Enter(_ui.Object);
+        
+        // Assert
+        _ui.VerifySet(ui => ui.Screen=It.IsAny<HeroScreen>());
     }
 
 }

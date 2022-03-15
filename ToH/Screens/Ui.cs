@@ -6,31 +6,38 @@ namespace ToH.Screens;
 public class Ui : IObserver
 {
     private readonly Controller _controller;
-    private readonly IScreen _screen;
+    public Screen Screen { get; set; }
 
-    public Ui(Controller controller, IScreen screen)
+    public Ui(Controller controller, Screen screen)
     {
         _controller = controller;
-        _screen = screen;
+        Screen = screen;
         _controller.Add(this);
     }
-    
+
     public void Update()
     {
-        _screen.Print(_controller.Action);
-           
+        switch (_controller.Action)
+        {
+            case Action.None:
+                Screen.None(this);
+                break;
+            case Action.Down:
+                Screen.Down(this);
+                break;
+            case Action.Up:
+                Screen.Up(this);
+                break;
+
+            default:
+                // TODO log
+                break;
+        }
+
     }
 
     public void Print()
     {
-        _screen.Print(Action.None);
-    }
-
-    // TODO Move
-    public void ShowHero(Hero hero) {
-    }
-    
-    // TODO Move
-    public void ShowDashboard(List<Hero> heroes) {
+        Screen.None(this);
     }
 }

@@ -3,17 +3,10 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace ToH;
 
-public enum Action
-{
-    None,
-    Up,
-    Down,
-    Enter,
-}
-
+// ReSharper disable once ClassWithVirtualMembersNeverInherited.Global
 public class Controller : AbstractSubject
 {
-    public Action Action { get; private set; }
+    public virtual Action Action { get; private set; }
     public void ListenForInput()
     {
         bool notExit = true;
@@ -29,6 +22,10 @@ public class Controller : AbstractSubject
                     break;
                 case ConsoleKey.DownArrow:
                     Action = Action.Down;
+                    Notify();
+                    break;
+                case ConsoleKey.Enter:
+                    Action = Action.Enter;
                     Notify();
                     break;
                 case ConsoleKey.Q:

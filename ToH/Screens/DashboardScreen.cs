@@ -1,9 +1,6 @@
 namespace ToH.Screens;
 
-public class DashboardScreen : IScreen
+public class DashboardScreen : Screen
 {
-    public void Print(Action action)
-    {
-        throw new NotImplementedException();
-    }
+    
 }

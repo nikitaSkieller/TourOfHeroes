@@ -1,6 +1,10 @@
 namespace ToH.Screens;
 
-public interface IScreen
+public abstract class Screen
 {
-    void Print(Action action);
+    public virtual void None(Ui ui) { }
+    
+    public virtual void Up(Ui ui) {}
+    
+    public virtual void Down(Ui ui) {}
 }

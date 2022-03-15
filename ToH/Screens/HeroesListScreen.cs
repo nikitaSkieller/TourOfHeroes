@@ -3,7 +3,7 @@ using ToH.Log;
 
 namespace ToH.Screens;
 
-public class HeroesListScreen : IScreen
+public class HeroesListScreen : Screen
 {
     private readonly IDatabase _db;
     private readonly ILog _log;
@@ -16,24 +16,31 @@ public class HeroesListScreen : IScreen
         _log = log;
         _printer = printer;
     }
-    public void Print(Action action)
+
+    public override void None(Ui ui)
     {
-        switch (action)
+        ShowHeroes();
+    }
+
+    public override void Up(Ui ui)
+    {
+        if (cursorPosition > 0)
         {
-            case Action.Down when cursorPosition < _db.GetAllHeroes().Count - 1:
-                cursorPosition += 1;
-                break;
-            case Action.Up when cursorPosition > 0:
-                cursorPosition -= 1;
-                break;
-            default:
-                _log.Log($"Action() not supported in context");
-                break;
+            cursorPosition -= 1;
         }
-        ShowHeroes(cursorPosition);
+        ShowHeroes();
+    }
+
+    public override void Down(Ui ui)
+    {
+        if (_db.GetAllHeroes().Count - 1 > cursorPosition)
+        {
+            cursorPosition += 1;
+        }
+        ShowHeroes();
     }
     
-    private void ShowHeroes(int cursorPos)
+    private void ShowHeroes()
     {
         var heroes = _db.GetAllHeroes();
         _printer.Clear();
@@ -41,7 +48,7 @@ public class HeroesListScreen : IScreen
         _printer.PrintLine("   | Id | Name ");
         foreach (var (index, hero) in heroes.Select((value, i) => (i, value)))
         {
-            _printer.PrintLine($" {(index == cursorPos ? "*" : " ")} | {hero.Id} | {hero.Name.ToUpper()}");
+            _printer.PrintLine($" {(index == cursorPosition ? "*" : " ")} | {hero.Id} | {hero.Name.ToUpper()}");
         }
     } 
 

@@ -1,13 +1,16 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using ToH;
+using ToH.Data;
 using ToH.Log;
 using ToH.Screens;
 
-var controller = new Controller();
 var db = new HeroesContainer();
 var log = new ConsoleLog();
-var initScreen = new HeroesListScreen(db, log);
+var printer = new ConsolePrinter();
+var initScreen = new HeroesListScreen(db, log, printer);
+
+var controller = new Controller();
 var ui = new Ui(controller, initScreen);
 ui.Print();
 

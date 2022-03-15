@@ -1,4 +1,4 @@
-namespace ToH;
+namespace ToH.Data;
 
 public class Hero
 {

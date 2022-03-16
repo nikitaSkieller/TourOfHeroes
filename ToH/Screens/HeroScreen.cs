@@ -4,12 +4,12 @@ namespace ToH.Screens;
 
 public class HeroScreen : Screen
 {
-    private readonly Hero _hero;
+    public Hero Hero { get; set; }
     private readonly IPrinter _printer;
 
     public HeroScreen(Hero hero, IPrinter printer)
     {
-        _hero = hero;
+        Hero = hero;
         _printer = printer;
     }
 
@@ -18,7 +18,16 @@ public class HeroScreen : Screen
         _printer.Clear();
         _printer.PrintLine("Hero details");
         _printer.PrintLine("");
-        _printer.PrintLine($"Id: {_hero.Id}");
-        _printer.PrintLine($"Name: {_hero.Name.ToUpper()}");
+        _printer.PrintLine($"Id: {Hero.Id}");
+        _printer.PrintLine($"Name: {Hero.Name.ToUpper()}");
+    }
+
+    public override void Escape(IUi ui)
+    {
+        var newScreen = ui.ScreenFactory.CreateScreen(typeof(HeroesListScreen));
+        if (newScreen != null)
+        {
+            ui.Screen = newScreen;
+        }
     }
 }

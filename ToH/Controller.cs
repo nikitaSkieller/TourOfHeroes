@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
+using System.Transactions;
 
 namespace ToH;
 
@@ -18,15 +19,15 @@ public class Controller : AbstractSubject
             {
                 case ConsoleKey.UpArrow:
                     Action = Action.Up;
-                    Notify();
                     break;
                 case ConsoleKey.DownArrow:
                     Action = Action.Down;
-                    Notify();
                     break;
                 case ConsoleKey.Enter:
                     Action = Action.Enter;
-                    Notify();
+                    break;
+                case ConsoleKey.Backspace:
+                    Action = Action.Escape;
                     break;
                 case ConsoleKey.Q:
                     notExit = false;
@@ -35,6 +36,7 @@ public class Controller : AbstractSubject
                     Console.WriteLine($"Unknown key {key.Key}");
                     break;
             }
+            Notify();
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Moq;
+using ToH.BLL;
 using ToH.Data;
 using ToH.PL;
 using ToH.PL.Screens;
@@ -12,23 +13,23 @@ namespace ToH.Tests.Screens;
 public class HeroesListScreenTest
 {
     private HeroesListScreen uut;
-    private Mock<IDatabase> _db;
     private Mock<IPrinter> _printer;
     private Mock<IUi> _ui;
+    private Mock<IHeroesController> _heroesController;
 
     public HeroesListScreenTest()
     {
-        _db = new Mock<IDatabase>();
+        _heroesController = new Mock<IHeroesController>();
         _printer = new Mock<IPrinter>(MockBehavior.Strict);
         _ui = new Mock<IUi>();
-        uut = new HeroesListScreen(_db.Object, _printer.Object);
+        uut = new HeroesListScreen(_heroesController.Object, _printer.Object);
     }
 
     [Fact]
     public void ShouldPrintTowLines_WithNoActionAndOneHero()
     {
         // Arrange
-        _db.Setup(db => db.GetAllHeroes()).Returns(new List<Hero>()
+        _heroesController.Setup(db => db.GetAllHeroes()).Returns(new List<Hero>()
         {
             new () { Id = 1, Name = "TestHero1"},
         });
@@ -48,7 +49,7 @@ public class HeroesListScreenTest
     public void ShouldAddCursorOnFirstHero_WhenNoActionIsGiven()
     {
         // Arrange
-        _db.Setup(db => db.GetAllHeroes()).Returns(new List<Hero>()
+        _heroesController.Setup(db => db.GetAllHeroes()).Returns(new List<Hero>()
         {
             new () { Id = 1, Name = "TestHero1"},
         });
@@ -69,7 +70,7 @@ public class HeroesListScreenTest
     public void ShouldKeepCursorOnFirstHero_WhenDownActionIsGivenOnLastHero()
     {
         // Arrange
-        _db.Setup(db => db.GetAllHeroes()).Returns(new List<Hero>()
+        _heroesController.Setup(db => db.GetAllHeroes()).Returns(new List<Hero>()
         {
             new () { Id = 1, Name = "TestHero1"},
         });
@@ -90,7 +91,7 @@ public class HeroesListScreenTest
     public void ShouldKeepCursorOnLastHero_WhenDownActionIsGivenOnFirstHero()
     {
         // Arrange
-        _db.Setup(db => db.GetAllHeroes()).Returns(new List<Hero>()
+        _heroesController.Setup(db => db.GetAllHeroes()).Returns(new List<Hero>()
         {
             new () { Id = 1, Name = "TestHero1"},
         });
@@ -111,7 +112,7 @@ public class HeroesListScreenTest
     public void ShouldAddCursorOnFirstHero_WhenNoActionIsGivenAndTwoHeroes()
     {
         // Arrange
-        _db.Setup(db => db.GetAllHeroes()).Returns(new List<Hero>()
+        _heroesController.Setup(db => db.GetAllHeroes()).Returns(new List<Hero>()
         {
             new () { Id = 1, Name = "TestHero1"},
             new () { Id = 2, Name = "TestHero2"},
@@ -134,7 +135,7 @@ public class HeroesListScreenTest
     public void ShouldShowHeroNameInUppercase()
     {
         // Arrange
-        _db.Setup(db => db.GetAllHeroes()).Returns(new List<Hero>()
+        _heroesController.Setup(db => db.GetAllHeroes()).Returns(new List<Hero>()
         {
             new () { Id = 1, Name = "TestHero1"},
         });
@@ -154,7 +155,7 @@ public class HeroesListScreenTest
     public void ShouldAddCursorSecondFirstHero_WhenDowActionIsGivenWithTwoHeroes()
     {
         // Arrange
-        _db.Setup(db => db.GetAllHeroes()).Returns(new List<Hero>()
+        _heroesController.Setup(db => db.GetAllHeroes()).Returns(new List<Hero>()
         {
             new () { Id = 1, Name = "TestHero1"},
             new () { Id = 2, Name = "TestHero2"},
@@ -177,7 +178,7 @@ public class HeroesListScreenTest
     public void ShouldKeepCursorSecondFirstHero_WhenDowActionIsGivenTwiceWithTwoHeroes()
     {
         // Arrange
-        _db.Setup(db => db.GetAllHeroes()).Returns(new List<Hero>()
+        _heroesController.Setup(db => db.GetAllHeroes()).Returns(new List<Hero>()
         {
             new () { Id = 1, Name = "TestHero1"},
             new () { Id = 2, Name = "TestHero2"},
@@ -204,7 +205,7 @@ public class HeroesListScreenTest
     public void ShouldMoveCursorToSecondAndBackToFirstHero_WhenDowAndUpActionsIsGivenWithTwoHeroes()
     {
         // Arrange
-        _db.Setup(db => db.GetAllHeroes()).Returns(new List<Hero>()
+        _heroesController.Setup(db => db.GetAllHeroes()).Returns(new List<Hero>()
         {
             new () { Id = 1, Name = "TestHero1"},
             new () { Id = 2, Name = "TestHero2"},
@@ -233,7 +234,7 @@ public class HeroesListScreenTest
         // Arrange
         var hero = new Hero() { Id = 1, Name = "TestHero1" };
         var heroScreen = new HeroScreen(hero, new Mock<IPrinter>().Object);
-        _db.Setup(db => db.GetAllHeroes()).Returns(new List<Hero>()
+        _heroesController.Setup(db => db.GetAllHeroes()).Returns(new List<Hero>()
         {
             hero,
         });

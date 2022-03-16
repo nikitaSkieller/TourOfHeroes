@@ -1,17 +1,16 @@
-using ToH.Data;
-using ToH.Log;
+using ToH.BLL;
 
 namespace ToH.PL.Screens;
 
 public class HeroesListScreen : Screen
 {
-    private readonly IDatabase _db;
+    private readonly IHeroesController _heroesController;
     private readonly IPrinter _printer;
     private int cursorPosition = 0;
 
-    public HeroesListScreen(IDatabase db, IPrinter printer)
+    public HeroesListScreen(IHeroesController heroesController, IPrinter printer)
     {
-        _db = db;
+        _heroesController = heroesController;
         _printer = printer;
     }
 
@@ -31,7 +30,7 @@ public class HeroesListScreen : Screen
 
     public override void Down(IUi ui)
     {
-        if (_db.GetAllHeroes().Count - 1 > cursorPosition)
+        if (_heroesController.GetAllHeroes().Count - 1 > cursorPosition)
         {
             cursorPosition += 1;
         }
@@ -40,7 +39,7 @@ public class HeroesListScreen : Screen
 
     public override void Enter(IUi ui)
     {
-        var newScreen = ui.ScreenFactory.CreateScreen(typeof(HeroScreen), _db.GetAllHeroes()[cursorPosition]);
+        var newScreen = ui.ScreenFactory.CreateScreen(typeof(HeroScreen), _heroesController.GetAllHeroes()[cursorPosition]);
         if (newScreen != null)
         {
             ui.Screen = newScreen;
@@ -54,7 +53,7 @@ public class HeroesListScreen : Screen
 
     private void ShowHeroes()
     {
-        var heroes = _db.GetAllHeroes();
+        var heroes = _heroesController.GetAllHeroes();
         _printer.Clear();
 
         _printer.PrintLine("   | Id | Name ");

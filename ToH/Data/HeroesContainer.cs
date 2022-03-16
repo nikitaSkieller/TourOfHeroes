@@ -20,7 +20,7 @@ public class HeroesContainer : IDatabase
             new() { Id = 20, Name = "Tornado" },
         };
     }
-    public List<Hero> GetAllHeroes()
+    public IReadOnlyList<Hero> GetAllHeroes()
     {
         return _heroes;
     }

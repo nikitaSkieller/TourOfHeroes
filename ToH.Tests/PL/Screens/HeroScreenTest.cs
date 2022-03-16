@@ -1,5 +1,6 @@
 using System;
 using Moq;
+using ToH.BLL;
 using ToH.Data;
 using ToH.PL;
 using ToH.PL.Screens;
@@ -54,7 +55,7 @@ public class HeroScreenTest
     public void ShouldSetScreenToHeroListScreen_WhenEscapeIsCalled()
     {
         // Arrange
-        var heroesListScreen = new HeroesListScreen(new Mock<IDatabase>().Object, _printer.Object);
+        var heroesListScreen = new HeroesListScreen(new Mock<IHeroesController>().Object, _printer.Object);
         var ui = new Mock<IUi>();
         var screenFactory = new Mock<IScreenFactory>();
         screenFactory

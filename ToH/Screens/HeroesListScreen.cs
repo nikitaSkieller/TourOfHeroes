@@ -40,7 +40,7 @@ public class HeroesListScreen : Screen
 
     public override void Enter(IUi ui)
     {
-        ui.Screen = new HeroScreen(_db.GetAllHeroes()[cursorPosition]);
+        ui.Screen = new HeroScreen(_db.GetAllHeroes()[cursorPosition], _printer);
     }
 
     public override void Init()

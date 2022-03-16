@@ -40,7 +40,11 @@ public class HeroesListScreen : Screen
 
     public override void Enter(IUi ui)
     {
-        ui.Screen = new HeroScreen(_db.GetAllHeroes()[cursorPosition], _printer);
+        var newScreen = ui.ScreenFactory.CreateScreen(typeof(HeroScreen), _db.GetAllHeroes()[cursorPosition]);
+        if (newScreen != null)
+        {
+            ui.Screen = newScreen;
+        }
     }
 
     public override void Init()

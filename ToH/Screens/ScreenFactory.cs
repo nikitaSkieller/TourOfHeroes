@@ -1,20 +1,23 @@
 using System.Dynamic;
 using System.Reflection.Metadata;
 using ToH.Data;
+using ToH.Log;
 
 namespace ToH.Screens;
 
-public class ScreenFactory
+public class ScreenFactory : IScreenFactory
 {
     private readonly IDatabase _database;
     private readonly IPrinter _printer;
+    private readonly ILog _log;
     private HeroesListScreen? _heroesListScreen;
     private HeroScreen? _heroScreen;
 
-    public ScreenFactory(IDatabase database, IPrinter printer)
+    public ScreenFactory(IDatabase database, IPrinter printer, ILog log)
     {
         _database = database;
         _printer = printer;
+        _log = log;
     }
 
     public Screen? CreateScreen(Type type, Hero? hero = null)
@@ -28,6 +31,7 @@ public class ScreenFactory
         {
             return HeroScreen(hero);
         }
+        _log.Log($"ScreenFactory.createScreen: Cant create type {type} with parameters {hero}");
         return null; // TODO replace with something usefull
     }
 

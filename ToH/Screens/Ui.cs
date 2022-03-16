@@ -18,10 +18,12 @@ public class Ui : IUi, IObserver
             _screen.Init();
         }
     }
+    public IScreenFactory ScreenFactory { get; }
 
-    public Ui(Controller controller, Screen screen, ILog log)
+    public Ui(Controller controller, Screen? screen, ILog log, IScreenFactory screenFactory)
     {
         Screen = screen;
+        ScreenFactory = screenFactory;
         _controller = controller;
         _log = log;
         _controller.Add(this);
@@ -42,6 +44,9 @@ public class Ui : IUi, IObserver
                 break;
             case Action.Enter:
                 Screen.Enter(this);
+                break;
+            case Action.Escape:
+                Screen.Escape(this);
                 break;
             default:
                 _log.Log($"Unhandled action: {_controller.Action}");

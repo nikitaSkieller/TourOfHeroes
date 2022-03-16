@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Moq;
 using ToH.Data;
@@ -230,16 +231,25 @@ public class HeroesListScreenTest
     public void ShouldSetScreenOnUiToHeroScreen_WhenEnterActionIsGiven()
     {
         // Arrange
+        var hero = new Hero() { Id = 1, Name = "TestHero1" };
+        var heroScreen = new HeroScreen(hero, new Mock<IPrinter>().Object);
         _db.Setup(db => db.GetAllHeroes()).Returns(new List<Hero>()
         {
-            new () { Id = 1, Name = "TestHero1"},
+            hero,
         });
+        var screenFactory = new Mock<IScreenFactory>();
+        screenFactory
+            .Setup(sf => sf.CreateScreen(
+                    It.Is<Type>(t => t == typeof(HeroScreen)), 
+                    It.IsAny<Hero>()))
+            .Returns(heroScreen);
+        _ui.Setup(ui => ui.ScreenFactory).Returns(screenFactory.Object);
         
         // Act
         uut.Enter(_ui.Object);
         
         // Assert
-        _ui.VerifySet(ui => ui.Screen=It.IsAny<HeroScreen>());
+        _ui.VerifySet(ui => ui.Screen=It.Is<HeroScreen>(hs => hs == heroScreen));
     }
 
 }

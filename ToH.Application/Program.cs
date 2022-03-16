@@ -7,10 +7,11 @@ using ToH.Screens;
 
 var db = new HeroesContainer();
 var printer = new ConsolePrinter();
-var initScreen = new HeroesListScreen(db, printer);
+var log = new ConsoleLog();
+var screenFactory = new ScreenFactory(db, printer, log);
+var initScreen = screenFactory.CreateScreen(typeof(HeroesListScreen));
 
 var controller = new Controller();
-var log = new ConsoleLog();
-var ui = new Ui(controller, initScreen, log);
+var ui = new Ui(controller, initScreen, log, screenFactory);
 
 controller.ListenForInput();

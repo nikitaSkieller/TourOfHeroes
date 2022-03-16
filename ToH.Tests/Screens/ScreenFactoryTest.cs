@@ -1,5 +1,6 @@
 using Moq;
 using ToH.Data;
+using ToH.Log;
 using ToH.Screens;
 using Xunit;
 
@@ -10,12 +11,14 @@ public class ScreenFactoryTest
     private ScreenFactory _uut;
     private Mock<IPrinter> _printer;
     private Mock<IDatabase> _database;
+    private Mock<ILog> _log;
 
     public ScreenFactoryTest()
     {
         _database = new Mock<IDatabase>();
         _printer = new Mock<IPrinter>();
-        _uut = new ScreenFactory(_database.Object, _printer.Object);
+        _log = new Mock<ILog>();
+        _uut = new ScreenFactory(_database.Object, _printer.Object, _log.Object);
     }
     
     [Fact]

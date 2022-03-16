@@ -12,7 +12,7 @@ public class Controller : AbstractSubject
         bool notExit = true;
         while (notExit)
         {
-            var key = Console.ReadKey();
+            var key = Console.ReadKey(true);
 
             switch (key.Key)
             {
@@ -32,7 +32,7 @@ public class Controller : AbstractSubject
                     notExit = false;
                     break;
                 default:
-                    Console.WriteLine($"{key.Key}");
+                    Console.WriteLine($"Unknown key {key.Key}");
                     break;
             }
         }

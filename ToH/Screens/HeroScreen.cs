@@ -10,4 +10,9 @@ public class HeroScreen : Screen
     {
         _hero = hero;
     }
+
+    public override void Init()
+    {
+        throw new NotImplementedException();
+    }
 }

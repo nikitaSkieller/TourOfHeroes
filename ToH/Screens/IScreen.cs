@@ -8,4 +8,6 @@ public abstract class Screen
     
     public virtual void Down(IUi ui) {}
     public virtual void Enter(IUi ui) {}
+
+    public abstract void Init();
 }

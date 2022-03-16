@@ -7,13 +7,23 @@ public class Ui : IUi, IObserver
 {
     private readonly Controller _controller;
     private readonly ILog _log;
-    public Screen Screen { get; set; }
+    private Screen _screen;
+
+    public Screen Screen
+    {
+        private get => _screen;
+        set
+        {
+            _screen = value;
+            _screen.Init();
+        }
+    }
 
     public Ui(Controller controller, Screen screen, ILog log)
     {
+        Screen = screen;
         _controller = controller;
         _log = log;
-        Screen = screen;
         _controller.Add(this);
     }
 
@@ -37,11 +47,5 @@ public class Ui : IUi, IObserver
                 _log.Log($"Unhandled action: {_controller.Action}");
                 break;
         }
-
-    }
-
-    public void Print()
-    {
-        Screen.None(this);
     }
 }

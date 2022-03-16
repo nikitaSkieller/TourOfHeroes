@@ -12,6 +12,5 @@ var initScreen = new HeroesListScreen(db, printer);
 var controller = new Controller();
 var log = new ConsoleLog();
 var ui = new Ui(controller, initScreen, log);
-ui.Print();
 
 controller.ListenForInput();

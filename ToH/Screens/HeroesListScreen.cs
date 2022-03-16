@@ -43,6 +43,11 @@ public class HeroesListScreen : Screen
         ui.Screen = new HeroScreen(_db.GetAllHeroes()[cursorPosition]);
     }
 
+    public override void Init()
+    {
+        ShowHeroes();
+    }
+
     private void ShowHeroes()
     {
         var heroes = _db.GetAllHeroes();

@@ -21,13 +21,14 @@ public class UiTest
     }
 
     [Fact]
-    public void ShouldExecuteNoneActionOnScreen_WhenPrintIsCalled()
+    public void ShouldExecuteInitOne_WhenConstructed()
     {
+        var screen = new Mock<Screen>();
         // Act
-        uut.Print();
-        
+        var uut = new Ui(_controller.Object, screen.Object, _log.Object);
+
         // Assert
-        _screen.Verify(screen => screen.None(It.Is<Ui>(ui => ui.Equals(uut))), Times.Once);
+        screen.Verify(screen => screen.Init(), Times.Once);
     }
     
     [Fact]

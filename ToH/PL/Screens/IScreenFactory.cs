@@ -1,6 +1,6 @@
 using ToH.Data;
 
-namespace ToH.Screens;
+namespace ToH.PL.Screens;
 
 public interface IScreenFactory
 {

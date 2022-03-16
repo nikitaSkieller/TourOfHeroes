@@ -1,7 +1,7 @@
 using ToH.Data;
 using ToH.Log;
 
-namespace ToH.Screens;
+namespace ToH.PL.Screens;
 
 public class HeroesListScreen : Screen
 {

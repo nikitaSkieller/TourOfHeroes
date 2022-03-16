@@ -3,7 +3,7 @@ using System.Reflection.Metadata;
 using ToH.Data;
 using ToH.Log;
 
-namespace ToH.Screens;
+namespace ToH.PL.Screens;
 
 public class ScreenFactory : IScreenFactory
 {

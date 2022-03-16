@@ -1,4 +1,4 @@
-namespace ToH;
+namespace ToH.BLL;
 
 public enum Action
 {

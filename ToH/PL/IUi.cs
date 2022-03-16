@@ -1,4 +1,6 @@
-namespace ToH.Screens;
+using ToH.PL.Screens;
+
+namespace ToH.PL;
 
 public interface IUi
 {

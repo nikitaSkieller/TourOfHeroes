@@ -1,6 +1,8 @@
 using Moq;
+using ToH.BLL;
 using ToH.Log;
-using ToH.Screens;
+using ToH.PL;
+using ToH.PL.Screens;
 using Xunit;
 
 namespace ToH.Tests.Screens;

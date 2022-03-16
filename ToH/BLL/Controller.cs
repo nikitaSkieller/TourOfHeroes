@@ -2,8 +2,7 @@ using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Transactions;
 
-namespace ToH;
-
+namespace ToH.BLL;
 // ReSharper disable once ClassWithVirtualMembersNeverInherited.Global
 public class Controller : AbstractSubject
 {

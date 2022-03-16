@@ -1,7 +1,9 @@
-﻿using ToH.Data;
+﻿using ToH.BLL;
 using ToH.Log;
+using ToH.PL.Screens;
+using Action = ToH.BLL.Action;
 
-namespace ToH.Screens;
+namespace ToH.PL;
 
 public class Ui : IUi, IObserver
 {

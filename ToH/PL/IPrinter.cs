@@ -1,4 +1,4 @@
-namespace ToH.Screens;
+namespace ToH.PL;
 
 public interface IPrinter
 {

@@ -7,6 +7,7 @@ public abstract class Screen
     public virtual void Down(IUi ui) {}
     public virtual void Enter(IUi ui) {}
     public virtual void Escape(IUi ui) {}
+    public virtual void Text(IUi ui, string controllerValue) { }
 
     public abstract void Init();
 }

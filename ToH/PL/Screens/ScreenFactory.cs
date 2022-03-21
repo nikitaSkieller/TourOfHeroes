@@ -36,7 +36,7 @@ public class ScreenFactory : IScreenFactory
         }
         else if (type == typeof(DashboardScreen))
         {
-            return new DashboardScreen(_heroesController, _printer);
+            return new DashboardScreen(_heroesController, _sessionController, _printer);
         }
         else if (type == typeof(LoginScreen))
         {

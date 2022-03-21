@@ -20,7 +20,10 @@ public class LoginScreenTest
     public LoginScreenTest()
     {
         _printer = new Mock<IPrinter>();
-        _dashboardScreen = new DashboardScreen(new Mock<IHeroesController>().Object, _printer.Object);
+        _dashboardScreen = new DashboardScreen(
+            new Mock<IHeroesController>().Object,
+            new Mock<ISessionController>().Object,
+            _printer.Object);
         _factory = new Mock<IScreenFactory>();
         _factory.Setup(factory => factory.CreateScreen(
                 It.Is<Type>(t => t == typeof(DashboardScreen)),

@@ -13,12 +13,14 @@ public class ScreenFactory : IScreenFactory
     private readonly ILog _log;
     private HeroesListScreen? _heroesListScreen;
     private HeroScreen? _heroScreen;
+    private ISessionController _sessionController;
 
-    public ScreenFactory(IHeroesController heroesController, IPrinter printer, ILog log)
+    public ScreenFactory(IHeroesController heroesController, ISessionController sessionController, IPrinter printer, ILog log)
     {
         _heroesController = heroesController;
         _printer = printer;
         _log = log;
+        _sessionController = sessionController;
     }
 
     public Screen? CreateScreen(Type type, Hero? hero = null)
@@ -36,6 +38,10 @@ public class ScreenFactory : IScreenFactory
         {
             return new DashboardScreen(_heroesController, _printer);
         }
+        else if (type == typeof(LoginScreen))
+        {
+            return new LoginScreen(_sessionController, _printer);
+        }
         _log.Log($"ScreenFactory.createScreen: Cant create type {type} with parameters {hero}");
         return null; // TODO replace with something usefull
     }
@@ -49,8 +55,8 @@ public class ScreenFactory : IScreenFactory
         _heroScreen!.Hero = hero;
         return _heroScreen;
     }
-
-    private Screen HeroesListScreen()
+    
+    public Screen HeroesListScreen()
     {
         if (_heroesListScreen == null)
         {

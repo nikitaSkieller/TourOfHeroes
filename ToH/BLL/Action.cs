@@ -6,5 +6,6 @@ public enum Action
     Up,
     Down,
     Enter,
-    Escape
+    Escape,
+    Text,
 }

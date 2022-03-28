@@ -42,7 +42,7 @@ public class ScreenFactory : IScreenFactory
         {
             return new LoginScreen(_sessionController, _printer);
         }
-        _log.Log($"ScreenFactory.createScreen: Cant create type {type} with parameters {hero}");
+        _log.Log($"ScreenFactory.createScreen: Can't create type {type} with parameters {hero}");
         return null; // TODO replace with something usefull
     }
 

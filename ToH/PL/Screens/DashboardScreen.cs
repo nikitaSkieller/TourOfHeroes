@@ -6,12 +6,14 @@ namespace ToH.PL.Screens;
 public class DashboardScreen : Screen
 {
     private readonly IHeroesController _heroesController;
+    private readonly ISessionController _sessionController;
     private readonly IPrinter _printer;
     private int cursorPosition = 0;
 
-    public DashboardScreen(IHeroesController heroesController, IPrinter printer)
+    public DashboardScreen(IHeroesController heroesController, ISessionController sessionController, IPrinter printer)
     {
         _heroesController = heroesController;
+        _sessionController = sessionController;
         _printer = printer;
     }
     public override void Init()
@@ -57,6 +59,8 @@ public class DashboardScreen : Screen
         var heroes = _heroesController.GetDashboardHeroes();
 
         _printer.Clear();
+        _printer.PrintLine($"Welcome: " + _sessionController.Username.ToUpper());        
+        _printer.PrintLine("+++++++++++++++++++++++++");
         _printer.PrintLine("   | GOTO Action / Hero ");
         _printer.PrintLine($" {(0 == cursorPosition ? "*" : " ")} | Heroes list");
         _printer.PrintLine("+++++++++++++++++++++++++");

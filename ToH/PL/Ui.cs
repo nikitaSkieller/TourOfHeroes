@@ -50,6 +50,9 @@ public class Ui : IUi, IObserver
             case Action.Escape:
                 Screen.Escape(this);
                 break;
+            case Action.Text:
+                Screen.Text(this, _controller.value!);
+                break;
             default:
                 _log.Log($"Unhandled action: {_controller.Action}");
                 break;

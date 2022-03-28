@@ -14,14 +14,16 @@ public class ScreenFactoryTest
     private Mock<IPrinter> _printer;
     private Mock<IHeroesController> _heroesController;
     private Mock<ILog> _log;
+    private Mock<ISessionController> _sessionController;
 
     public ScreenFactoryTest()
     {
         _heroesController = new Mock<IHeroesController>();
+        _sessionController = new Mock<ISessionController>();
 
         _printer = new Mock<IPrinter>();
         _log = new Mock<ILog>();
-        _uut = new ScreenFactory(_heroesController.Object, _printer.Object, _log.Object);
+        _uut = new ScreenFactory(_heroesController.Object, _sessionController.Object, _printer.Object, _log.Object);
     }
     
     [Fact]
@@ -90,5 +92,15 @@ public class ScreenFactoryTest
 
         // Assert
         Assert.Equal(hero2, screen.Hero);
+    }
+
+    [Fact]
+    public void ShouldCreateALoginScreen_WhenGivenALoginScreenType()
+    {
+        // act
+        var screen = _uut.CreateScreen(typeof(LoginScreen));
+        
+        // Assert
+        Assert.IsType<LoginScreen>(screen);
     }
 }

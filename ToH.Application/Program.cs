@@ -9,10 +9,11 @@ using ToH.PL.Screens;
 
 var db = new HeroesContainer();
 var heroesController = new HeroesController(db);
+var sessionController = new SessionController();
 var printer = new ConsolePrinter();
 var log = new ConsoleLog();
-var screenFactory = new ScreenFactory(heroesController, printer, log);
-var initScreen = screenFactory.CreateScreen(typeof(DashboardScreen));
+var screenFactory = new ScreenFactory(heroesController, sessionController, printer, log);
+var initScreen = screenFactory.CreateScreen(typeof(LoginScreen));
 
 var controller = new Controller();
 var ui = new Ui(controller, initScreen, log, screenFactory);

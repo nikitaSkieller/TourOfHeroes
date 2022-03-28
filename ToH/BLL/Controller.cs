@@ -7,32 +7,34 @@ namespace ToH.BLL;
 public class Controller : AbstractSubject
 {
     public virtual Action Action { get; private set; }
+    public virtual string? value { get; private set; }
     public void ListenForInput()
     {
         bool notExit = true;
         while (notExit)
         {
-            var key = Console.ReadKey(true);
+            var line = Console.ReadLine();
 
-            switch (key.Key)
+            switch (line)
             {
-                case ConsoleKey.UpArrow:
+                case "w":
                     Action = Action.Up;
                     break;
-                case ConsoleKey.DownArrow:
+                case "s":
                     Action = Action.Down;
                     break;
-                case ConsoleKey.Enter:
+                case "d":
                     Action = Action.Enter;
                     break;
-                case ConsoleKey.Backspace:
+                case "a":
                     Action = Action.Escape;
                     break;
-                case ConsoleKey.Q:
+                case "q":
                     notExit = false;
                     break;
                 default:
-                    Console.WriteLine($"Unknown key {key.Key}");
+                    value = line;
+                    Action = Action.Text;
                     break;
             }
             Notify();

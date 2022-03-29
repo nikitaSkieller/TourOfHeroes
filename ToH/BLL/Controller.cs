@@ -1,7 +1,7 @@
 namespace ToH.BLL;
 // ReSharper disable once ClassWithVirtualMembersNeverInherited.Global
+// TODO: Maybe move to PL?
 public class Controller : AbstractSubject
-// [CR_Claudio] Shouldn't this class be in the presentation layer, given that it interacts with the "outside world"?
 {
     public virtual Action Action { get; private set; }
     public virtual string? value { get; private set; }

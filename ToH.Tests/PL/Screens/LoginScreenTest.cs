@@ -2,6 +2,7 @@ using System;
 using Moq;
 using ToH.BLL;
 using ToH.Data;
+using ToH.Log;
 using ToH.PL;
 using ToH.PL.Screens;
 using Xunit;
@@ -11,6 +12,7 @@ namespace ToH.Tests.Screens;
 public class LoginScreenTest
 {
     private Mock<IPrinter> _printer;
+    private Mock<ILog> _log;
     private LoginScreen _uut;
     private Mock<IUi> _ui;
     private DashboardScreen _dashboardScreen;
@@ -20,10 +22,11 @@ public class LoginScreenTest
     public LoginScreenTest()
     {
         _printer = new Mock<IPrinter>();
+        _log = new Mock<ILog>();
         _dashboardScreen = new DashboardScreen(
             new Mock<IHeroesController>().Object,
             new Mock<ISessionController>().Object,
-            _printer.Object);
+            _printer.Object, _log.Object);
         _factory = new Mock<IScreenFactory>();
         _factory.Setup(factory => factory.CreateScreen(
                 It.Is<Type>(t => t == typeof(DashboardScreen)),
@@ -34,7 +37,7 @@ public class LoginScreenTest
         _ui.Setup(ui => ui.ScreenFactory).Returns(_factory.Object);
         _controller = new Mock<ISessionController>();
 
-        _uut = new LoginScreen(_controller.Object, _printer.Object);
+        _uut = new LoginScreen(_controller.Object, _printer.Object, _log.Object);
     }
 
     [Fact]

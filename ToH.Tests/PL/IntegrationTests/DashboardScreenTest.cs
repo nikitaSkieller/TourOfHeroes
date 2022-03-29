@@ -1,5 +1,7 @@
+using Moq;
 using ToH.BLL;
 using ToH.Data;
+using ToH.Log;
 using ToH.PL.Screens;
 using ToH.Tests.PL.IntegrationTests;
 using Xunit;
@@ -22,7 +24,8 @@ public class DashboardScreenTest
         sessionController = new SessionController();
         sessionController.Username = "Test";
         _printer = new ListPrinter();
-        _uui = new DashboardScreen(heroesController, sessionController, _printer);
+        var log = new Mock<ILog>();
+        _uui = new DashboardScreen(heroesController, sessionController, _printer, log.Object);
     }
 
     [Fact]

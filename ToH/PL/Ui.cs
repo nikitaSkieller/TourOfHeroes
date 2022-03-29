@@ -54,7 +54,7 @@ public class Ui : IUi, IObserver
                 Screen.Text(this, _controller.value!);
                 break;
             default:
-                _log.Log($"Unhandled action: {_controller.Action}");
+                _log.Error($"Unhandled action: {_controller.Action}");
                 break;
         }
     }

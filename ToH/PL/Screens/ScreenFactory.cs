@@ -28,39 +28,39 @@ public class ScreenFactory : IScreenFactory
         Console.WriteLine(type);
         if (type == typeof(HeroesListScreen))
         {
-            return HeroesListScreen();
+            return HeroesListScreen(_log);
         }
         else if (type == typeof(HeroScreen) && hero != null)
         {
-            return HeroScreen(hero);
+            return HeroScreen(hero, _log);
         }
         else if (type == typeof(DashboardScreen))
         {
-            return new DashboardScreen(_heroesController, _sessionController, _printer);
+            return new DashboardScreen(_heroesController, _sessionController, _printer, _log);
         }
         else if (type == typeof(LoginScreen))
         {
-            return new LoginScreen(_sessionController, _printer);
+            return new LoginScreen(_sessionController, _printer, _log);
         }
-        _log.Log($"ScreenFactory.createScreen: Can't create type {type} with parameters {hero}");
+        _log.Error($"ScreenFactory.createScreen: Can't create type {type} with parameters {hero}");
         return null; // TODO replace with something usefull
     }
 
-    private Screen HeroScreen(Hero hero)
+    private Screen HeroScreen(Hero hero, ILog log)
     {
         if (_heroScreen == null)
         {
-            _heroScreen = new HeroScreen(hero, _printer);
+            _heroScreen = new HeroScreen(hero, _printer, log);
         }
         _heroScreen!.Hero = hero;
         return _heroScreen;
     }
     
-    public Screen HeroesListScreen()
+    public Screen HeroesListScreen(ILog log)
     {
         if (_heroesListScreen == null)
         {
-            _heroesListScreen = new HeroesListScreen(_heroesController, _printer);
+            _heroesListScreen = new HeroesListScreen(_heroesController, _printer, log);
         }
         return _heroesListScreen;
     }

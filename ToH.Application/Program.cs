@@ -11,7 +11,7 @@ var db = new HeroesContainer();
 var heroesController = new HeroesController(db);
 var sessionController = new SessionController();
 var printer = new ConsolePrinter();
-var log = new ConsoleLog();
+var log = new FileLog("log.txt", append: false);
 var screenFactory = new ScreenFactory(heroesController, sessionController, printer, log);
 var initScreen = screenFactory.CreateScreen(typeof(LoginScreen));
 

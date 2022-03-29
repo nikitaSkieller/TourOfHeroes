@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Moq;
 using ToH.BLL;
 using ToH.Data;
+using ToH.Log;
 using ToH.PL;
 using ToH.PL.Screens;
 using Xunit;
@@ -15,6 +16,7 @@ public class HeroesListScreenTest
     private HeroesListScreen uut;
     private Mock<IPrinter> _printer;
     private Mock<IUi> _ui;
+    private Mock<ILog> _log;
     private Mock<IHeroesController> _heroesController;
 
     public HeroesListScreenTest()
@@ -22,7 +24,8 @@ public class HeroesListScreenTest
         _heroesController = new Mock<IHeroesController>();
         _printer = new Mock<IPrinter>(MockBehavior.Strict);
         _ui = new Mock<IUi>();
-        uut = new HeroesListScreen(_heroesController.Object, _printer.Object);
+        _log = new Mock<ILog>();
+        uut = new HeroesListScreen(_heroesController.Object, _printer.Object, _log.Object);
     }
 
     [Fact]
@@ -233,7 +236,7 @@ public class HeroesListScreenTest
     {
         // Arrange
         var hero = new Hero() { Id = 1, Name = "TestHero1" };
-        var heroScreen = new HeroScreen(hero, new Mock<IPrinter>().Object);
+        var heroScreen = new HeroScreen(hero, new Mock<IPrinter>().Object, _log.Object);
         _heroesController.Setup(db => db.GetAllHeroes()).Returns(new List<Hero>()
         {
             hero,

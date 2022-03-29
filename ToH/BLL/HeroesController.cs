@@ -18,6 +18,6 @@ public class HeroesController : IHeroesController
 
     public IReadOnlyList<Hero> GetDashboardHeroes()
     {
-        return _database.GetAllHeroes().Take(3).ToList();
+        return _database.GetAllHeroes().Take(2).ToList();
     }
 }

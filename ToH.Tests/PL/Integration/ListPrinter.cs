@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using ToH.PL;
 
-namespace ToH.Tests.PL.IntegrationTests
+namespace ToH.Tests.Integration
 {
     internal class ListPrinter : IPrinter
     {

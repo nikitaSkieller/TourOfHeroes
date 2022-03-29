@@ -3,10 +3,9 @@ using ToH.BLL;
 using ToH.Data;
 using ToH.Log;
 using ToH.PL.Screens;
-using ToH.Tests.PL.IntegrationTests;
 using Xunit;
 
-namespace ToH.Tests.Screens;
+namespace ToH.Tests.Integration;
 
 public class DashboardScreenTest
 {
